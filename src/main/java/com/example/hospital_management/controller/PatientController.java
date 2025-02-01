@@ -28,26 +28,16 @@ public class PatientController {
                 .collect(Collectors.toList());
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
         Optional<Patient> patient = patientService.getPatientById(id);
         return patient.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody @Valid Patient patient) {
         Patient savedPatient = patientService.savePatient(patient);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPatient);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
-        if (patientService.deletePatient(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
@@ -65,4 +55,11 @@ public class PatientController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
+        if (patientService.deletePatient(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

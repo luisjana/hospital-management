@@ -1,5 +1,6 @@
 package com.example.hospital_management;
 
+import com.example.hospital_management.entity.Department;
 import com.example.hospital_management.entity.Gender;
 import com.example.hospital_management.entity.Patient;
 import com.example.hospital_management.repository.PatientRepository;
@@ -32,12 +33,17 @@ public class PatientServiceTest {
 
     @BeforeEach
     void setup() {
+        Department department = new Department();
+        department.setId(1L);
+        department.setName("Cardiology");
+
         patient1 = new Patient(1L, "John", "Doe", LocalDate.of(1990, 5, 20),
-                Gender.MALE, "123-456-7890", "john@example.com", "NYC");
+                Gender.MALE, "123-456-7890", "john@example.com", "NYC", department);
 
         patient2 = new Patient(2L, "Alice", "Smith", LocalDate.of(1995, 7, 20),
-                Gender.FEMALE, "987-654-3210", "alice.smith@example.com", "Los Angeles");
+                Gender.FEMALE, "987-654-3210", "alice.smith@example.com", "Los Angeles", department);
     }
+
 
     @Test
     void testCreatePatient() {

@@ -13,38 +13,52 @@ import java.util.Optional;
 @RequestMapping("/api/departments")
 public class DepartmentController {
 
+
+    private final DepartmentService departmentService;
+
     @Autowired
-    private DepartmentService departmentService;
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
 
     @GetMapping
     public List<Department> getAllDepartments() {
         return departmentService.getAllDepartments();
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Department> getDepartmentById(@PathVariable Long id) {
         Optional<Department> department = departmentService.getDepartmentById(id);
-        return department.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+        if (department.isPresent()) {
+            return ResponseEntity.ok(department.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+
     @PostMapping
-    public Department createDepartment(@RequestBody Department department) {
-        return departmentService.createDepartment(department);
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
+        Department createdDepartment = departmentService.createDepartment(department);
+        return ResponseEntity.ok(createdDepartment);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department department) {
         return departmentService.updateDepartment(id, department)
-                .map(ResponseEntity::ok)
+                .map(updatedDepartment -> ResponseEntity.ok(updatedDepartment))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
-        if (departmentService.deleteDepartment(id)) {
+        boolean deleted = departmentService.deleteDepartment(id);
+        if (deleted) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
     }
+
+
 }

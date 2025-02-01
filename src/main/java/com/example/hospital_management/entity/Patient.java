@@ -5,7 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -31,11 +30,15 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Pattern(regexp = "^\\d{3}-?\\d{3}-?\\d{4}$", message = "Phone must be in XXX-XXX-XXXX format")
+    @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Phone must be in XXX-XXX-XXXX format")
     private String phone;
 
     @Email
     private String email;
 
     private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = true) // Opsionale
+    private Department department;
 }

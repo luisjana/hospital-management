@@ -1,6 +1,7 @@
 package com.example.hospital_management.service;
 
 import com.example.hospital_management.entity.Department;
+import com.example.hospital_management.exception.EntityNotFoundException;
 import com.example.hospital_management.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,10 +36,17 @@ public class DepartmentService {
     }
 
     public boolean deleteDepartment(Long id) {
-        if (departmentRepository.existsById(id)) {
-            departmentRepository.deleteById(id);
-            return true;
+        Optional<Department> departmentOpt = departmentRepository.findById(id);
+        if (departmentOpt.isEmpty()) {
+            throw new EntityNotFoundException("Department with ID " + id + " not found");
         }
-        return false;
+
+        Department department = departmentOpt.get();
+        if (department.getPatients() != null && !department.getPatients().isEmpty()) {
+            throw new IllegalStateException("Cannot delete department with active patients.");
+        }
+
+        departmentRepository.deleteById(id);
+        return true;
     }
 }

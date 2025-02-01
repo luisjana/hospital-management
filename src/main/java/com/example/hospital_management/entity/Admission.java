@@ -6,7 +6,8 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "admissions")
@@ -32,4 +33,3 @@ public class Admission {
     @Enumerated(EnumType.STRING)
     private DischargeReason dischargeReason;
 }
-

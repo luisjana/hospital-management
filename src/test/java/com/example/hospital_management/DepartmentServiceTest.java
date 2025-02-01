@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -58,8 +59,16 @@ public class DepartmentServiceTest {
 
     @Test
     void testDeleteDepartment() {
-        when(departmentRepository.existsById(1L)).thenReturn(true);
+        department.setPatients(new ArrayList<>());
+
+        lenient().when(departmentRepository.findById(1L)).thenReturn(Optional.of(department));
+        lenient().when(departmentRepository.existsById(1L)).thenReturn(true);
+
         boolean result = departmentService.deleteDepartment(1L);
+
         assertTrue(result);
+        verify(departmentRepository, times(1)).deleteById(1L);
     }
+
+
 }

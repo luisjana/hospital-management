@@ -28,7 +28,7 @@ public class DoctorService {
 
     public Optional<Doctor> updateDoctor(Long id, Doctor doctor) {
         if (doctorRepository.existsById(id)) {
-            doctor.setId(id);
+            // **Hiq setId()**
             return Optional.of(doctorRepository.save(doctor));
         }
         return Optional.empty();

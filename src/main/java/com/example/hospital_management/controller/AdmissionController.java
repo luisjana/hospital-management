@@ -4,6 +4,7 @@ import com.example.hospital_management.entity.Admission;
 import com.example.hospital_management.repository.AdmissionRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +28,10 @@ public class AdmissionController {
         Optional<Admission> admission = admissionRepository.findById(id);
         return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @PostMapping
     public ResponseEntity<Admission> createAdmission(@RequestBody @Valid Admission admission) {
-        return ResponseEntity.ok(admissionRepository.save(admission));
+        Admission savedAdmission = admissionRepository.save(admission);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAdmission);
     }
 
     @PutMapping("/{id}")
