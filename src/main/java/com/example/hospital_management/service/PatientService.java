@@ -1,5 +1,7 @@
+// Përcakton paketën ku ndodhet kjo klasë shërbimi për menaxhimin e pacientëve
 package com.example.hospital_management.service;
 
+// Importimi i klasave të nevojshme për të menaxhuar entitetin `Patient` dhe për të komunikuar me bazën e të dhënave
 import com.example.hospital_management.entity.Patient;
 import com.example.hospital_management.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,35 +11,52 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 
-
-@Service
+/**
+ * Kjo klasë shërben për të menaxhuar pacientët në spital.
+ * Përdor `PatientRepository` për të komunikuar me bazën e të dhënave.
+ */
+@Service // Shënon këtë klasë si një komponent të Spring që menaxhon logjikën e biznesit për pacientët
 public class PatientService {
 
-    @Autowired
+    @Autowired // Injeksion i varësisë për `PatientRepository`
     private PatientRepository patientRepository;
 
-    // ✅ Metoda për marrjen e të gjithë pacientëve
+    /**
+     * Merr të gjithë pacientët nga baza e të dhënave.
+     * @return një listë me të gjithë pacientët
+     */
     public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+        return patientRepository.findAll(); // Përdor JpaRepository për të marrë të gjithë pacientët
     }
 
-    // ✅ Metoda për krijimin ose përditësimin e një pacienti
+    /**
+     * Krijon ose përditëson një pacient në bazën e të dhënave.
+     * @param patient objekti `Patient` që do të ruhet
+     * @return objekti `Patient` i ruajtur
+     */
     public Patient savePatient(Patient patient) {
-        return patientRepository.save(patient);
+        return patientRepository.save(patient); // Ruajtja ose përditësimi i pacientit
     }
 
-    // ✅ Metoda për marrjen e një pacienti nga ID
+    /**
+     * Kthen një pacient sipas ID-së.
+     * @param id ID-ja e pacientit që do të kërkohet
+     * @return një `Optional<Patient>` që përmban pacientin nëse ekziston
+     */
     public Optional<Patient> getPatientById(Long id) {
-        return patientRepository.findById(id);
+        return patientRepository.findById(id); // Kërkon pacientin sipas ID-së
     }
 
-
-    // ✅ Metoda për fshirjen e një pacienti nga ID
+    /**
+     * Fshin një pacient nga baza e të dhënave sipas ID-së.
+     * @param id ID-ja e pacientit që do të fshihet
+     * @return `true` nëse pacienti u fshi me sukses, përndryshe `false`
+     */
     public boolean deletePatient(Long id) {
-        if (patientRepository.existsById(id)) {
-            patientRepository.deleteById(id);
+        if (patientRepository.existsById(id)) { // Kontrollon nëse pacienti ekziston në bazën e të dhënave
+            patientRepository.deleteById(id); // Fshin pacientin sipas ID-së
             return true;
         }
-        return false;
+        return false; // Nëse pacienti nuk ekziston, kthen `false`
     }
 }

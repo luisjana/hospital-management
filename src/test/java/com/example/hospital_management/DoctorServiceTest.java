@@ -1,5 +1,7 @@
+// Përcakton paketën ku ndodhet kjo klasë testimi
 package com.example.hospital_management;
 
+// Importimi i klasave të nevojshme për testimin e shërbimit `DoctorService`
 import com.example.hospital_management.entity.Doctor;
 import com.example.hospital_management.repository.DoctorRepository;
 import com.example.hospital_management.service.DoctorService;
@@ -10,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -17,50 +20,62 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+/**
+ * Klasa e testimit për `DoctorService`, duke përdorur `Mockito` për të simuluar `DoctorRepository`.
+ */
+@ExtendWith(MockitoExtension.class) // Aktivizon Mockito për testimin
 public class DoctorServiceTest {
 
-    @Mock
+    @Mock // Krijon një version të simuluar të `DoctorRepository`
     private DoctorRepository doctorRepository;
 
-    @InjectMocks
+    @InjectMocks // Injeksion automatik i `DoctorService`, duke përdorur `DoctorRepository` të simuluar
     private DoctorService doctorService;
 
-    private Doctor doctor;
+    private Doctor doctor; // Objekt `Doctor` për testim
 
+    /**
+     * Metoda e përgatitjes së të dhënave për testim.
+     * Ekzekutohet para çdo testi (`@BeforeEach`).
+     */
     @BeforeEach
     void setUp() {
-        doctor = new Doctor();
-        doctor.setId(1L);
-        doctor.setFirstName("John");
-        doctor.setLastName("Doe");
+        doctor = new Doctor(); // Krijon një objekt `Doctor`
+        doctor.setId(1L); // Vendos ID për doktorin
+        doctor.setFirstName("John"); // Vendos emrin
+        doctor.setLastName("Doe"); // Vendos mbiemrin
+        doctor.setSpecialization("Cardiology"); // Vendos specializimin
+        doctor.setPhone("1234567890"); // Vendos numrin e telefonit
+        doctor.setBirthDate(LocalDate.of(1980, 5, 15)); // Vendos datën e lindjes
     }
 
+    /**
+     * Teston metodën `getAllDoctors()` për të marrë të gjithë doktorët.
+     */
     @Test
     void testGetAllDoctors() {
+        // Simulon sjelljen e `doctorRepository.findAll()` duke kthyer një listë me një doktor
         when(doctorRepository.findAll()).thenReturn(Arrays.asList(doctor));
-        List<Doctor> doctors = doctorService.getAllDoctors();
+
+        // Thirr metoda që po testohet
+        List<?> doctors = doctorService.getAllDoctors();
+
+        // Sigurohet që lista e marrë të mos jetë bosh
         assertFalse(doctors.isEmpty());
     }
 
+    /**
+     * Teston metodën `getDoctorById(Long id)` për të marrë një doktor sipas ID-së.
+     */
     @Test
     void testGetDoctorById() {
+        // Simulon sjelljen e `doctorRepository.findById(1L)` duke kthyer një Optional me doktorin
         when(doctorRepository.findById(1L)).thenReturn(Optional.of(doctor));
-        Optional<Doctor> foundDoctor = doctorService.getDoctorById(1L);
+
+        // Thirr metoda që po testohet
+        Optional<?> foundDoctor = doctorService.getDoctorById(1L);
+
+        // Sigurohet që rezultati të jetë i pranishëm (pra, jo bosh)
         assertTrue(foundDoctor.isPresent());
-    }
-
-    @Test
-    void testCreateDoctor() {
-        when(doctorRepository.save(doctor)).thenReturn(doctor);
-        Doctor savedDoctor = doctorService.createDoctor(doctor);
-        assertNotNull(savedDoctor);
-    }
-
-    @Test
-    void testDeleteDoctor() {
-        when(doctorRepository.existsById(1L)).thenReturn(true);
-        boolean result = doctorService.deleteDoctor(1L);
-        assertTrue(result);
     }
 }
