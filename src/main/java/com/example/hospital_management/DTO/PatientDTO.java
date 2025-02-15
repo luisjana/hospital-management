@@ -6,10 +6,11 @@ import com.example.hospital_management.entity.Patient; // Importimi i entitetit 
 import lombok.Getter; // Gjeneron automatikisht metodat `get()`
 import lombok.Setter; // Gjeneron automatikisht metodat `set()`
 import java.time.LocalDate; // Importimi i LocalDate për fushën birthDate
-
+import lombok.NoArgsConstructor;
 // DTO (Data Transfer Object) për Patient
 @Getter // Gjeneron automatikisht metodat get për fushat e klasës
 @Setter // Gjeneron automatikisht metodat set për fushat e klasës
+@NoArgsConstructor
 public class PatientDTO {
 
     private Long id; // ID e pacientit

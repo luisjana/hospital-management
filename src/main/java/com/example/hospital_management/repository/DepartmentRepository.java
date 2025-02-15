@@ -12,11 +12,6 @@ import org.springframework.stereotype.Repository; // Anotacion për të treguar 
  */
 @Repository // Shënon këtë ndërfaqe si një komponent të Spring që menaxhon të dhënat
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    // Nuk ka nevojë për implementim manual, JpaRepository ofron automatikisht operacionet CRUD:
-    // - findAll() -> Merr të gjitha departamentet nga baza e të dhënave
-    // - findById(Long id) -> Kthen një departament sipas ID-së në një Optional<Department>
-    // - save(Department department) -> Shton ose përditëson një departament në bazën e të dhënave
-    // - deleteById(Long id) -> Fshin një departament sipas ID-së
-    // - existsById(Long id) -> Kontrollon nëse një departament ekziston sipas ID-së
+
 }
 

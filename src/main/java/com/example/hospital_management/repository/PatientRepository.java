@@ -12,10 +12,5 @@ import org.springframework.stereotype.Repository; // Anotacion për të treguar 
  */
 @Repository // Shënon këtë ndërfaqe si një komponent të Spring që menaxhon të dhënat
 public interface PatientRepository extends JpaRepository<Patient, Long> {
-    // Nuk ka nevojë për implementim manual, JpaRepository ofron automatikisht operacionet CRUD:
-    // - findAll() -> Merr të gjithë pacientët nga baza e të dhënave
-    // - findById(Long id) -> Kthen një pacient sipas ID-së në një Optional<Patient>
-    // - save(Patient patient) -> Shton ose përditëson një pacient në bazën e të dhënave
-    // - deleteById(Long id) -> Fshin një pacient sipas ID-së
-    // - existsById(Long id) -> Kontrollon nëse një pacient ekziston sipas ID-së
+
 }

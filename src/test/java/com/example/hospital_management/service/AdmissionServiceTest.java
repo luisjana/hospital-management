@@ -1,5 +1,5 @@
 // Përcakton paketën ku ndodhet kjo klasë testimi
-package com.example.hospital_management;
+package com.example.hospital_management.service;
 
 // Importimi i klasave të nevojshme për testimin e shërbimit `AdmissionService`
 import com.example.hospital_management.entity.Admission;
@@ -8,7 +8,6 @@ import com.example.hospital_management.entity.Patient;
 import com.example.hospital_management.repository.AdmissionRepository;
 import com.example.hospital_management.repository.PatientRepository;
 import com.example.hospital_management.repository.DoctorRepository;
-import com.example.hospital_management.service.AdmissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

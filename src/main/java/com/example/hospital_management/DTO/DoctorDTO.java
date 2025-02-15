@@ -7,6 +7,9 @@ import lombok.Getter; // Gjeneron automatikisht metodat `get()`
 import lombok.Setter; // Gjeneron automatikisht metodat `set()`
 
 import java.time.LocalDate; // Importimi i LocalDate për fushën birthDate
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 
 // DTO (Data Transfer Object) për Doctor
 @Getter // Gjeneron automatikisht metodat get për fushat e klasës

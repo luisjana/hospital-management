@@ -5,6 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ✅ PARENT SPRING BOOT -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -12,65 +13,83 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <!-- ✅ IDENTIFIKIMI I PROJEKTIT -->
     <groupId>com.example</groupId>
     <artifactId>hospital-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>hospital-management</name>
     <description>Hospital Management Application using Spring Boot</description>
 
+    <!-- ✅ JAVA VERSION -->
     <properties>
         <java.version>17</java.version>
     </properties>
 
+    <!-- ✅ DEPENDENCIES -->
     <dependencies>
-        <!-- ✅ SPRING BOOT STARTERS -->
+        <!-- 🔹 SPRING BOOT DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- ✅ VALIDATION API -->
+        <!-- 🔹 VALIDATION API -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.2</version>
         </dependency>
 
-        <!-- ✅ MYSQL DRIVER -->
+        <!-- 🔹 MYSQL DRIVER -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>3.1.2</version>
         </dependency>
 
-
-        <!-- ✅ LOMBOK (për të gjeneruar automatikisht @Getter, @Setter) -->
+        <!-- 🔹 LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ SPRING BOOT CONFIGURATION PROCESSOR (për `@ConfigurationProperties`) -->
+        <!-- 🔹 MapStruct (për DTO-të) -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.5.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 🔹 SPRING BOOT CONFIGURATION PROCESSOR -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- ✅ DEVTOOLS (për hot-reloading gjatë zhvillimit) -->
+        <!-- 🔹 DEVTOOLS për zhvillim më të shpejtë -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -78,7 +97,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- ✅ TESTING DEPENDENCIES -->
+        <!-- 🔹 TESTING DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -90,14 +109,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- 🔹 TESTNG me version të qartë -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>7.7.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <!-- ✅ KONFIGURIMI I NDËRTIMIT -->
     <build>
         <resources>
             <resource>
@@ -110,11 +132,11 @@
         </resources>
 
         <plugins>
-            <!-- ✅ MAVEN COMPILER PLUGIN -->
+            <!-- 🔹 MAVEN COMPILER PLUGIN (vetëm një deklaratë) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -133,7 +155,7 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ SPRING BOOT MAVEN PLUGIN -->
+            <!-- 🔹 SPRING BOOT MAVEN PLUGIN -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -10,6 +10,7 @@ import java.util.Collections; // Përdoret për kthimin e një liste të zbrazë
 import java.util.List; // Përdoret për ruajtjen e pacientëve të një departamenti
 
 // Anotacion që tregon se kjo është një entitet që do të ruhet në bazën e të dhënave
+@Setter
 @Entity
 @Data // Gjeneron automatikisht metodat `get()`, `set()`, `toString()`, `equals()` dhe `hashCode()`
 @NoArgsConstructor // Gjeneron një konstruktor pa parametra
@@ -17,43 +18,26 @@ import java.util.List; // Përdoret për ruajtjen e pacientëve të një departa
 @Table(name = "departments") // Përcakton emrin e tabelës në bazën e të dhënave
 public class Department {
 
+    // Setter për ID-në e departamentit
+    // Getter për ID-në e departamentit
+    @Getter
     @Id // Përcakton këtë fushë si identifikuesin unik të entitetit
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID auto-inkrementohet nga baza e të dhënave
     private Long id; // Identifikuesi unik për departamentin
 
+    // Setter për emrin e departamentit
+    // Getter për emrin e departamentit
+    @Getter
     private String name; // Emri i departamentit
 
+    // Setter për listën e pacientëve
     @OneToMany(mappedBy = "department") // Përcakton marrëdhënien një-në-shumë me pacientët
     @JsonIgnore // Shmang ciklet rekursive kur një departament referon pacientët dhe pacientët referojnë departamentin
     private List<Patient> patients = new ArrayList<>(); // Lista e pacientëve që i përkasin këtij departamenti
-
-    // Getter për ID-në e departamentit
-    public Long getId() {
-        return id;
-    }
-
-    // Setter për ID-në e departamentit
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // Getter për emrin e departamentit
-    public String getName() {
-        return name;
-    }
-
-    // Setter për emrin e departamentit
-    public void setName(String name) {
-        this.name = name;
-    }
 
     // Getter për listën e pacientëve
     public List<Patient> getPatients() {
         return patients == null ? Collections.emptyList() : patients; // Nëse lista është `null`, kthehet një listë bosh
     }
 
-    // Setter për listën e pacientëve
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
 }

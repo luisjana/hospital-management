@@ -1,10 +1,7 @@
 package com.example.hospital_management.controller;
 
-
 import com.example.hospital_management.entity.Admission;// Entiteti Admission që përfaqëson një pranimin në spital
 import com.example.hospital_management.repository.AdmissionRepository;// Repository për të menaxhuar të dhënat e pranimeve
-import com.example.hospital_management.repository.DoctorRepository;
-import com.example.hospital_management.repository.PatientRepository;
 import com.example.hospital_management.service.AdmissionService;
 import jakarta.validation.Valid;// Përdoret për të validuar objektet e marra në kërkesat HTTP
 import org.springframework.beans.factory.annotation.Autowired;// Anotacion për injektimin automatik të varësive

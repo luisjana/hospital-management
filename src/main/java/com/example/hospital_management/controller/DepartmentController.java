@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;// Përdoret për të kthyer për
 import org.springframework.web.bind.annotation.*; // Importimi i anotacioneve REST për Spring Boot
 
 import java.util.List;// Lista për të mbajtur disa objekte DepartmentDTO
-import java.util.Optional;
 import java.util.stream.Collectors;// Përdoret për të konvertuar lista me Stream API
 
 // Kjo klasë është një kontrollues REST që menaxhon departamentet e spitalit
